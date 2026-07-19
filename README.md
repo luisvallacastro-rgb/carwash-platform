@@ -69,3 +69,24 @@ Las pruebas cubren transiciones inválidas, permisos de cancelación, cálculo d
 - Conectar R2 para evidencias e imágenes con validación de tipo/tamaño.
 - Añadir correo y WhatsApp/SMS a la cola de notificaciones; después SSE/WebSockets y push PWA.
 - Incorporar pagos sin hacerlos requisito para el flujo operativo.
+
+## Publicar actualizaciones desde la Mac
+
+Después de editar el código, abre Terminal dentro de la carpeta del proyecto y ejecuta:
+
+```bash
+./scripts/publicar-actualizacion.sh "Describe brevemente el cambio"
+```
+
+El script ejecuta las pruebas, crea el commit, sincroniza `main` y publica en GitHub. Si una prueba falla, la actualización no se envía.
+
+## Despliegue manual en Render
+
+El archivo `render.yaml` crea un **Web Service** de Node, usa la rama `main`, escucha el puerto asignado por Render y mantiene los despliegues automáticos desactivados.
+
+1. En Render, selecciona **New → Blueprint**.
+2. Conecta este repositorio de GitHub.
+3. Confirma la creación del servicio `carwash-platform`.
+4. Para cada actualización, abre el servicio y selecciona **Manual Deploy → Deploy latest commit**.
+
+No copies `.env.local` al repositorio. Agrega secretos reales exclusivamente desde **Render → Environment**.
